@@ -3,7 +3,7 @@
 int main() {
     char ch;
     int choice, quantity, total_amount = 0, item_amount;
-
+    printf("....Menu.....\n");        
     printf("1. Pizza - Rs.180/pcs\n");
     printf("2. Burger - Rs.100/pcs\n");
     printf("3. Dosa - Rs.120/pcs\n");
@@ -55,10 +55,11 @@ int main() {
         }
 
         printf("Do you want to place more orders? (y/n): ");
-        scanf("%c", &ch);
+        scanf(" %c", &ch); // Adding space before %c to consume whitespace characters
 
-    } while (ch == 'y' || ch == 'n');
+    } while (ch == 'y');
 
     printf("Total Amount is = Rs.%d\n", total_amount);
 
+    return 0;
 }
