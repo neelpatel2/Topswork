@@ -1,0 +1,127 @@
+(1.What do you understand By Database) 
+-->A database is an organized collection of structured information or data, typically stored electronically in a 
+computer system. It is managed by a Database Management System (DBMS), which provides efficient data retrieval,
+insertion, updating, and deletion while ensuring data integrity, security, and availability. Databases support
+querying through languages like SQL and are designed to handle large volumes of data with features for backup,
+recovery, and concurrent access by multiple users.
+
+(2.What is Normalization?)
+-->Normalization is a database design process used to organize data to minimize redundancy and improve data integrity.
+It involves dividing a database into tables and establishing relationships between them according to rules designed
+to safeguard the data and make the database more efficient. The primary goals of normalization are to eliminate
+redundant data (for example, storing the same data in more than one table) and ensure data dependencies make sense
+(only storing related data in a table).
+(1)First Normal Form (1NF): Ensures that the table has only atomic (indivisible) values and each column contains unique values.
+(2)Second Normal Form (2NF): Achieved when the table is in 1NF and all non-key attributes are fully functionally dependent on the primary key.
+(3)Third Normal Form (3NF): Achieved when the table is in 2NF and all the attributes are only dependent on the primary key, not on other non-key attributes.
+Higher normal forms like Boyce-Codd Normal Form (BCNF) and Fourth Normal Form (4NF) address more complex scenarios.
+
+(3.What is Difference between DBMS and RDBMS?) 
+-->The difference between DBMS and RDBMS:
+1.Storage:
+DBMS: Files (flexible but less organized)
+RDBMS: Tables (structured and organized)
+2.Relationships:
+DBMS: Limited support, data connections can be complex
+RDBMS: Enforced relationships using keys (minimizes data duplication)
+3.Access:
+DBMS: File system methods (not standardized)
+RDBMS: SQL (powerful and standardized query language)
+4.Normalization:
+DBMS: Not typically used (can lead to data redundancy)
+RDBMS: Used to organize tables and reduce redundancy
+5.Security & Scalability:
+DBMS: Lower security features, limited for large datasets
+RDBMS: Better security and more scalable for bigger databases
+(5.What do you understand By Data Redundancy?) 
+-->Data redundancy refers to the situation where the same piece of information is stored in multiple locations 
+within a database or across different systems. It can be intentional for backup purposes or arise unintentionally
+due to inefficiencies.
+Causes:
+->Intentional: Replication for backups, disaster recovery, or improved performance across 
+geographically distributed systems.
+->Unintentional: Data gets copied or duplicated due to manual errors, siloed systems, 
+or poorly designed applications.
+
+(6.What is DDL Interpreter?) 
+-->A DDL interpreter is a component within a Database Management System (DBMS)responsible for processing Data 
+Definition Language (DDL) statements. 
+->Processes DDL Statements: DDL statements are instructions used to define the structure of a database, such as
+creating tables, views, indexes, and users. The DDL interpreter reads and analyzes these statements.
+->Generates Metadata: Based on the DDL statements, the interpreter creates metadata, which is essentially "data about data".
+This metadata describes the database schema, including table definitions, column data types,constraints, and user permissions.
+->Stores Metadata: The generated metadata is typically stored in a system catalog, a special database object
+that holds information about the structure and organization of the main user database.
+
+(7.What is DML Compiler in SQL?) 
+-->DML statements in SQL are used to manipulate data within the database.Common DML statements include SELECT,
+INSERT, UPDATE, and DELETE. These statements are processed by the SQL query processor or engine of the database
+system.
+Here's a brief overview of how DML statements are typically processed:
+Parsing: When a DML statement is submitted to the database, the SQL parser first analyzes the syntax of the 
+statement to ensure it follows the rules of the SQL language.
+Semantic Analysis: After parsing, the SQL engine performs semantic analysis to check the validity of the statement,
+including checking the existence of tables and columns referenced in the query and verifying the user's permissions 
+to perform the requested operation.
+Query Optimization: Once the statement is parsed and validated, the SQL engine performs query optimization to 
+generate an efficient execution plan for retrieving or modifying the data. This may involve selecting appropriate 
+indexes, join algorithms, and access paths to minimize resource usage and improve performance.
+
+(8.What is SQL Key Constraints writing an Example of SQL Key Constraints.)
+-->SQL key constraints are rules enforced on data columns in a table to ensure the integrity and consistency of the data.
+==>There are several types of key constraints, including:
+1.Primary Key: Ensures that a column (or a set of columns) has unique values and that no NULL values are allowed.
+Each table can have only one primary key.
+2.Foreign Key: Ensures that the values in a column (or a set of columns) match values in another table's primary key column(s),
+establishing a relationship between the tables.
+3.Unique Key: Ensures that all values in a column (or a set of columns) are unique.
+4.Not Null: Ensures that a column cannot have NULL values.
+Exmple>>
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY,  -- Primary key constraint
+    Username VARCHAR(50) UNIQUE,  -- Unique key constraint
+    Email VARCHAR(100) NOT NULL  -- Not null constraint
+);
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,  -- Primary key constraint
+    OrderDate DATE NOT NULL,  -- Not null constraint
+    UserID INT,  -- Foreign key column
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)  -- Foreign key constraint
+);
+INSERT INTO Users (UserID, Username, Email) VALUES (1, 'john_doe', 'john.doe@example.com');
+INSERT INTO Users (UserID, Username, Email) VALUES (2, 'jane_smith', 'jane.smith@example.com');
+INSERT INTO Orders (OrderID, OrderDate, UserID) VALUES (1, '2023-06-01', 1);
+INSERT INTO Orders (OrderID, OrderDate, UserID) VALUES (2, '2023-06-02', 2);
+
+(9.What is save Point? How to create a save Point write a Query?)
+-->A savepoint in SQL is a point within a transaction that you can roll back to without affecting the rest of the
+transaction. Savepoints are useful for partially undoing changes within a transaction and are especially helpful
+in complex transactions where you want to control which parts of the transaction to undo if an error occurs.
+-- Start a new transaction
+BEGIN TRANSACTION;
+QUERY
+INSERT INTO Users (UserID, Username, Email) VALUES (3, 'alice_brown', 'alice.brown@example.com');
+SAVEPOINT Savepoint1;
+INSERT INTO Users (UserID, Username, Email) VALUES (4, 'bob_white', 'bob.white@example.com');
+ROLLBACK TO SAVEPOINT Savepoint1;
+INSERT INTO Users (UserID, Username, Email) VALUES (5, 'charlie_green', 'charlie.green@example.com');
+COMMIT;
+
+(10.What is trigger and how to create a Trigger in SQL?) 
+-->A trigger in SQL is a special kind of stored procedure that automatically executes when specific events occur 
+in the database. These events can be INSERT, UPDATE, or DELETE operations on a table or a view. Triggers are used 
+to enforce business rules, maintain audit trails, and replicate data, among other uses.
+Creating a Trigger
+To create a trigger, you use the CREATE TRIGGER statement, specifying the event that will cause the trigger to
+fire and the actions that the trigger should perform.
+
+Here’s a step-by-step guide on how to create a trigger:
+Specify the Trigger Name: Choose a name for your trigger.
+Specify the Table: Identify the table on which the trigger will be applied.
+Specify the Event: Define the event that will fire the trigger (INSERT, UPDATE, or DELETE).
+Define the Timing: Specify whether the trigger should fire BEFORE or AFTER the event.
+Write the Trigger Action: Define the SQL statements to be executed when the trigger fires.
+
+
+
+

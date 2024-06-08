@@ -1,0 +1,50 @@
+-->Q11
+CREATE TABLE Salesperson (
+    SNo INT PRIMARY KEY,
+    SName VARCHAR(50),
+    City VARCHAR(50),
+    Comm DECIMAL(3, 2)
+);
+INSERT INTO Salesperson (SNo, SName, City, Comm) VALUES
+(1001, 'Peel', 'London', 0.12),
+(1002, 'Serres', 'San Jose', 0.13),
+(1004, 'Motika', 'London', 0.11),
+(1007, 'Rafkin', 'Barcelona', 0.15),
+(1003, 'Axelrod', 'New York', 0.10);
+ select *from salesperson;
++------+---------+-----------+------+
+| SNo  | SName   | City      | Comm |
++------+---------+-----------+------+
+| 1001 | Peel    | London    | 0.12 |
+| 1002 | Serres  | San Jose  | 0.13 |
+| 1003 | Axelrod | New York  | 0.10 |
+| 1004 | Motika  | London    | 0.11 |
+| 1007 | Rafkin  | Barcelona | 0.15 |
++------+---------+-----------+------+
+
+CREATE TABLE Customer (
+    CNo INT PRIMARY KEY,
+    CName VARCHAR(50),
+    City VARCHAR(50),
+    Rating INT,
+    SNo INT,
+    FOREIGN KEY (SNo) REFERENCES Salesperson(SNo)
+);
+INSERT INTO Customer (CNo, CName, City, Rating, SNo) VALUES
+(201, 'Hoffman', 'London', 100, 1001),
+(202, 'Giovanne', 'Roe', 200, 1003),
+(203, 'Liu', 'San Jose', 300, 1002),
+(204, 'Grass', 'Barcelona', 100, 1002),
+(206, 'Clemens', 'London', 300, 1007),
+(207, 'Pereira', 'Roe', 100, 1004);
+select *from customer;
++-----+----------+-----------+--------+------+
+| CNo | CName    | City      | Rating | SNo  |
++-----+----------+-----------+--------+------+
+| 201 | Hoffman  | London    |    100 | 1001 |
+| 202 | Giovanne | Roe       |    200 | 1003 |
+| 203 | Liu      | San Jose  |    300 | 1002 |
+| 204 | Grass    | Barcelona |    100 | 1002 |
+| 206 | Clemens  | London    |    300 | 1007 |
+| 207 | Pereira  | Roe       |    100 | 1004 |
++-----+----------+-----------+--------+------+
