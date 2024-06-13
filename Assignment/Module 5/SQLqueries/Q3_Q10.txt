@@ -1,0 +1,114 @@
+-->Q3
+SELECT First_name AS "Employee Name" FROM Employee WHERE First_name = 'Tom';
++---------------+
+| Employee Name |
++---------------+
+| Tom           |
++---------------+
+-->Q4
+SELECT First_name, Joining_date, Salary FROM Employee;
++------------+---------------------+---------+
+| First_name | Joining_date        | Salary  |
++------------+---------------------+---------+
+| John       | 2013-01-01 12:00:00 | 1000000 |
+| Michael    | 2013-01-01 12:00:00 |  800000 |
+| Roy        | 2013-02-01 12:00:00 |  700000 |
+| Tom        | 2013-02-01 12:00:00 |  600000 |
+| Jerry      | 2013-02-01 12:00:00 |  650000 |
+| Philip     | 2013-01-01 12:00:00 |  750000 |
+| TestName1  | 2013-01-01 12:00:00 |  650000 |
+| TestName2  | 2013-02-01 12:00:00 |  600000 |
++------------+---------------------+---------+
+-->Q5
+ SELECT * from Employee order by First_name ASC;
++-------------+------------+-----------+---------+---------------------+------------+
+| Employee_id | First_name | Last_name | Salary  | Joining_date        | Department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           5 | Jerry      | Pinto     |  650000 | 2013-02-01 12:00:00 | Insurance  |
+|           1 | John       | Abraham   | 1000000 | 2013-01-01 12:00:00 | Banking    |
+|           2 | Michael    | Clarke    |  800000 | 2013-01-01 12:00:00 | Insurance  |
+|           6 | Philip     | Mathew    |  750000 | 2013-01-01 12:00:00 | Services   |
+|           3 | Roy        | Thomas    |  700000 | 2013-02-01 12:00:00 | Banking    |
+|           7 | TestName1  | 123       |  650000 | 2013-01-01 12:00:00 | Services   |
+|           8 | TestName2  | Lname%    |  600000 | 2013-02-01 12:00:00 | Insurance  |
+|           4 | Tom        | Jose      |  600000 | 2013-02-01 12:00:00 | Insurance  |
++-------------+------------+-----------+---------+---------------------+------------+
+ SELECT * from Employee order by Salary DESC;
++-------------+------------+-----------+---------+---------------------+------------+
+| Employee_id | First_name | Last_name | Salary  | Joining_date        | Department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | John       | Abraham   | 1000000 | 2013-01-01 12:00:00 | Banking    |
+|           2 | Michael    | Clarke    |  800000 | 2013-01-01 12:00:00 | Insurance  |
+|           6 | Philip     | Mathew    |  750000 | 2013-01-01 12:00:00 | Services   |
+|           3 | Roy        | Thomas    |  700000 | 2013-02-01 12:00:00 | Banking    |
+|           5 | Jerry      | Pinto     |  650000 | 2013-02-01 12:00:00 | Insurance  |
+|           7 | TestName1  | 123       |  650000 | 2013-01-01 12:00:00 | Services   |
+|           4 | Tom        | Jose      |  600000 | 2013-02-01 12:00:00 | Insurance  |
+|           8 | TestName2  | Lname%    |  600000 | 2013-02-01 12:00:00 | Insurance  |
++-------------+------------+-----------+---------+---------------------+------------+
+-->Q6
+SELECT * FROM Employee WHERE First_name LIKE '%J%';
++-------------+------------+-----------+---------+---------------------+------------+
+| Employee_id | First_name | Last_name | Salary  | Joining_date        | Department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | John       | Abraham   | 1000000 | 2013-01-01 12:00:00 | Banking    |
+|           5 | Jerry      | Pinto     |  650000 | 2013-02-01 12:00:00 | Insurance  |
++-------------+------------+-----------+---------+---------------------+------------+
+-->Q7,Q8
+SELECT Department, MAX(Salary) AS Max_Salary FROM Employee GROUP BY Department ORDER BY Max_Salary ASC;
++------------+------------+
+| Department | Max_Salary |
++------------+------------+
+| Services   |     750000 |
+| Insurance  |     800000 |
+| Banking    |    1000000 |
++------------+------------+
+-->Q9
+ Select First_name, Incentive_amount from employee a inner join incentive B on A.Employee_id=B.Employee_ref_id and
+  Incentive_amount > 3000;
++------------+------------------+
+| First_name | Incentive_amount |
++------------+------------------+
+| John       |             5000 |
+| Roy        |             4000 |
+| John       |             4500 |
+| Michael    |             3500 |
++------------+------------------+
+-->Q10
+mysql>CREATE TABLE viewtable (
+  First_name VARCHAR(50),
+  Last_name VARCHAR(50),
+  Salary DECIMAL(10, 2),
+  Joining_date DATE,
+  Department VARCHAR(50)
+); 
+mysql>delimiter //
+  -> create trigger t1 after insert on employee for each row
+  -> insert into viewtable values(new.Employee_id,new.First_name,new.Last_name,new.salary,new.joining_date,new.Department);
+  -> end;
+  -> end
+  -> //
+mysql> insert into employee values(9,"Neel","Gami",15000,"2020-09-18 02:00","IT");
+  -> select *from employee;
+  -> select * from viewtable;
+  -> //
+Query OK, 1 row affected (0.02 sec)
++-------------+------------+-----------+---------+---------------------+------------+
+| Employee_id | First_name | Last_name | Salary  | Joining_date        | Department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | John       | Abraham   | 1000000 | 2013-01-01 12:00:00 | Banking    |
+|           2 | Michael    | Clarke    |  800000 | 2013-01-01 12:00:00 | Insurance  |
+|           3 | Roy        | Thomas    |  700000 | 2013-02-01 12:00:00 | Banking    |
+|           4 | Tom        | Jose      |  600000 | 2013-02-01 12:00:00 | Insurance  |
+|           5 | Jerry      | Pinto     |  650000 | 2013-02-01 12:00:00 | Insurance  |
+|           6 | Philip     | Mathew    |  750000 | 2013-01-01 12:00:00 | Services   |
+|           7 | TestName1  | 123       |  650000 | 2013-01-01 12:00:00 | Services   |
+|           8 | TestName2  | Lname%    |  600000 | 2013-02-01 12:00:00 | Insurance  |
+|           9 | Neel       | Gami      |   15000 | 2020-09-18 02:00:00 | IT         |
++-------------+------------+-----------+---------+---------------------+------------+
+9 rows in set (0.02 sec)
++-------------+------------+-----------+----------+--------------+------------+
+| Employee_id | First_name | Last_name | Salary   | Joining_date | Department |
++-------------+------------+-----------+----------+--------------+------------+
+|           9 | Neel       | Gami      | 15000.00 | 2020-09-18   | IT         |
++-------------+------------+-----------+----------+--------------+------------+
