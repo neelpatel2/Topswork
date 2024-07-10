@@ -1,0 +1,15 @@
+select pro_name as 'Item Name',pro_price as 'Price in Rs' from item_mast;
++------------------+-------------+
+| Item Name        | Price in Rs |
++------------------+-------------+
+| Mother Board     |     3200.00 |
+| Key Board        |      450.00 |
+| ZIP drive        |      250.00 |
+| Speaker          |      550.00 |
+| Monitor          |     5000.00 |
+| DVD drive        |      900.00 |
+| CD drive         |      800.00 |
+| Printer          |     2600.00 |
+| Refill cartridge |      350.00 |
+| Mouse            |      250.00 |
++------------------+-------------+
