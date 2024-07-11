@@ -1,6 +1,0 @@
-SELECT AVG(PRO_PRICE) AS Average_Price FROM item_mast WHERE PRO_COM = 16;
-+---------------+
-| Average_Price |
-+---------------+
-|    500.000000 |
-+---------------+
