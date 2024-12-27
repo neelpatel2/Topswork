@@ -3,7 +3,6 @@
 sentence = input("Enter a sentence: ")
 
 words = sentence.split()
-
 word_count = {}
 for index, word in enumerate(words):
     word_count[word] = word_count.get(word, 0) + 1

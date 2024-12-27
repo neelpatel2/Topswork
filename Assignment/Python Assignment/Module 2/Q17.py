@@ -9,3 +9,4 @@ swap2 = string1[:2] + string2[2:]
 result = swap1 + " " + swap2
 print("String:", result)
 
+ 
