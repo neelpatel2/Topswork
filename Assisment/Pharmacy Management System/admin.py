@@ -23,15 +23,23 @@ class Admin:
         query = "SELECT * FROM managers"
         managers = self.db.execute_query(query).fetchall()
         print("Managers:")
-        for manager in managers:
-            print(manager)
+        if managers:
+            for manager in managers:
+                # Print the manager's details by accessing columns by name
+                print(f"ID: {manager['id']}, Name: {manager['name']}, Pharmacy: {manager['pharmacy_name']}")
+        else:
+            print("No managers found.")
 
     def view_all_medicines(self):
         query = "SELECT * FROM medicines"
         medicines = self.db.execute_query(query).fetchall()
         print("Medicines:")
-        for medicine in medicines:
-            print(medicine)
+        if medicines:
+            for medicine in medicines:
+                # Print the medicine's details by accessing columns by name
+                print(f"ID: {medicine['id']}, Name: {medicine['name']}, Quantity: {medicine['qty']}, Price: {medicine['price']}, Added By: {medicine['added_by']}")
+        else:
+            print("No medicines found.")
 
     def __del__(self):
         self.db.close_connection()
