@@ -1,5 +1,4 @@
 #Write a Python program to count the number of characters (character frequency) in a string.
-
 name = input("Enter a something...")
 unique_ch = ""
 emp_ = dict()

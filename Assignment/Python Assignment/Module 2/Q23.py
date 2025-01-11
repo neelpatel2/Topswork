@@ -2,9 +2,6 @@
 
 string =input("Enter a String:")
 insert = input("Enter a string to insert:")
-
 middle = len(string) // 2
-
 result = string[:middle] + insert + string[middle:]
-
 print(result)  
