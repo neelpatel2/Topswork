@@ -1,5 +1,9 @@
 # Q.4 What is Django URLs?make program to create django urls
 """
+In Django, URLs (Uniform Resource Locators) are used to map web addresses (such as /home/, /about/) to specific views in your application. 
+The URL dispatcher (also known as the URL routing system) is a key part of Django’s framework. It allows you to link a URL pattern (defined in the urls.py file)
+to a specific Python function (view) that will return an HTTP response when the URL is accessed.
+
 1. Project-Level URLs (urls.py):
 Create a file named urls.py in the same folder as the views.py file, and type this code in it:
 

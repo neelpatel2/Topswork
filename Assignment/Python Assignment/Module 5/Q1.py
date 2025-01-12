@@ -1,9 +1,10 @@
-# Q.1 Q.1 Why Django should be used for web-development? Explain how you can create a project in Django? 
+# Q.1 Why Django should be used for web-development? Explain how you can create a project in Django? 
 """ 
-Django is a high-level Python web framework that enables rapid development of secure and maintainable websites. Built by experienced developers, Django takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel
+Django is a popular Python web framework because it offers rapid development, clean and pragmatic design, scalability, and built-in features
+like authentication, URL routing, and form handling. It follows the DRY (Don't Repeat Yourself) principle, making it efficient for building 
+secure and maintainable web applications.
 
 To create a project in Django, follow these steps:
-
 
 (1)create vertiual env for 'project-name' project:-
 python -m venv
@@ -37,7 +38,5 @@ python manage.py runserver
 
 (11)craete super user
 python manage.py createsuperuser
-
-Start Developing: You're now ready to start developing your Django project! Use the Django documentation and other resources to guide you through the process of building your web application.
 
 """
