@@ -1,0 +1,59 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="card shadow-lg p-4">
+      <h2 class="text-center text-primary">Manage Appointments</h2>
+      
+      {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+      
+      <table class="table table-bordered table-striped mt-4">
+        <thead class="thead-dark">
+          <tr>
+            <th>Patient</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appointment in appointments %}
+            <tr>
+              <td>{{ appointment.patient.user.username }}</td>
+              <td>{{ appointment.appointment_time|date:"Y-m-d" }}</td>  <!-- Date in YYYY-MM-DD format -->
+              <td>{{ appointment.appointment_time|date:"h:i A" }}</td>  <!-- Time in 12-hour format with AM/PM -->
+              <td>
+                <span  
+                  {% if appointment.status == 'scheduled' %}badge-info{% endif %}
+                  {% if appointment.status == 'completed' %}badge-success{% endif %}
+                  {% if appointment.status == 'canceled' %}badge-danger{% endif %}
+                  {% if appointment.status == 'rescheduled' %}badge-warning{% endif %}
+                  {% if appointment.status == 'incomplete' %}badge-secondary{% endif %}
+                ">
+                  {{ appointment.get_status_display }}
+                </span>
+              </td>
+              <td>
+                <form method="post" class="d-inline">
+                  {% csrf_token %}
+                  <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                  <select name="status" class="form-control form-control-sm">
+                    {% for choice in status_choices %}
+                      <option value="{{ choice.0 }}" {% if appointment.status == choice.0 %}selected{% endif %}>
+                        {{ choice.1 }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                  <button type="submit" class="btn btn-primary btn-sm mt-2">Update</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

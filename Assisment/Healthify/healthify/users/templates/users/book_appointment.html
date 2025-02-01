@@ -1,0 +1,68 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-lg p-4">
+    <h2 class="text-center text-primary">Book an Appointment</h2>
+
+    <form method="post" class="mt-4">
+      {% csrf_token %}
+      
+      <div class="mb-3">
+        <label for="doctor-select" class="form-label">Choose a Doctor:</label>
+        <select name="doctor_id" class="form-select" id="doctor-select" required>
+          <option value="" disabled selected>Select a doctor</option>
+          {% for doctor in doctors %}
+            <option value="{{ doctor.id }}" data-first-name="{{ doctor.first_name }}" 
+                    data-last-name="{{ doctor.last_name }}" data-specialization="{{ doctor.specialization }}" 
+                    data-contact="{{ doctor.contact_no }}" data-address="{{ doctor.address }}">
+              {{ doctor.first_name }} {{ doctor.last_name }} - {{ doctor.specialization }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div id="doctor-details" style="display: none;" class="mb-3">
+        <h4>Doctor's Details</h4>
+        <p><strong>Name:</strong> <span id="doctor-name"></span></p>
+        <p><strong>Specialization:</strong> <span id="doctor-specialization"></span></p>
+        <p><strong>Contact:</strong> <span id="doctor-contact"></span></p>
+        <p><strong>Address:</strong> <span id="doctor-address"></span></p>
+      </div>
+
+      <div class="mb-3">
+        <label for="appointment_time" class="form-label">Choose Appointment Date and Time:</label>
+        <input type="datetime-local" name="appointment_time" class="form-control" id="appointment_time" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg w-100">Book Appointment</button>
+    </form>
+
+    {% if error %}
+      <div class="alert alert-danger mt-3" role="alert">
+        {{ error }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  document.getElementById('doctor-select').addEventListener('change', function() {
+    var selectedOption = this.options[this.selectedIndex];
+    var doctorName = selectedOption.getAttribute('data-first-name') + ' ' + selectedOption.getAttribute('data-last-name');
+    var doctorSpecialization = selectedOption.getAttribute('data-specialization');
+    var doctorContact = selectedOption.getAttribute('data-contact');
+    var doctorAddress = selectedOption.getAttribute('data-address');
+    
+    // Update the doctor details section
+    document.getElementById('doctor-name').textContent = doctorName;
+    document.getElementById('doctor-specialization').textContent = doctorSpecialization;
+    document.getElementById('doctor-contact').textContent = doctorContact;
+    document.getElementById('doctor-address').textContent = doctorAddress;
+    
+    // Show the doctor details section
+    document.getElementById('doctor-details').style.display = 'block';
+  });
+</script>
+
+{% endblock %}
